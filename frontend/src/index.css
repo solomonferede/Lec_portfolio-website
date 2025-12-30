@@ -2,13 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Academic Typography */
+@layer base {
+  body {
+    @apply bg-white text-slate-800 dark:bg-slate-950 dark:text-slate-100 antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Merriweather', Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+    @apply text-slate-900 dark:text-slate-50;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
 
-@layer base {
-  body {
-    @apply bg-white text-slate-800 dark:bg-slate-950 dark:text-slate-100 antialiased;
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Section Reveal Animation */
+@layer utilities {
+  .section-reveal {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .section-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .section-reveal {
+      opacity: 1;
+      transform: none;
+    }
   }
 }
 
@@ -16,13 +59,90 @@ html {
   .container-px {
     @apply px-4 sm:px-6 lg:px-8;
   }
+  
   .section {
     @apply container-px max-w-7xl mx-auto py-16 sm:py-20;
   }
-  .card {
-    @apply rounded-2xl border border-slate-200/60 dark:border-slate-800/60 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow-soft;
+  
+  /* Section Heading with Vertical Accent Line */
+  .section-heading {
+    @apply text-2xl sm:text-3xl font-bold mb-2 relative pl-4;
   }
+  
+  .section-heading::before {
+    content: '';
+    @apply absolute left-0 top-0 bottom-0 w-0.5 bg-slate-300 dark:bg-slate-700;
+  }
+  
+  /* Academic Card - Soft shadow on hover, no scale/translate */
+  .card {
+    @apply rounded-lg border border-slate-200/60 dark:border-slate-800/60 bg-white dark:bg-slate-900/80;
+    @apply transition-shadow duration-300 ease-out;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .card {
+      transition: none;
+    }
+  }
+  
+  /* Timeline Item - Opacity-only fade */
+  .timeline-item {
+    @apply opacity-0 transition-opacity duration-500 ease-out;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .timeline-item.revealed {
+      @apply opacity-100;
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .timeline-item {
+      @apply opacity-100;
+    }
+  }
+  
+  /* Tag/Pill Style for Skills and Research Interests */
+  .tag {
+    @apply inline-block px-4 py-2 rounded-md border border-slate-200 dark:border-slate-700;
+    @apply bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300;
+    @apply text-sm font-medium;
+  }
+  
   .btn-primary {
-    @apply inline-flex items-center gap-2 rounded-xl bg-brand-600 text-white px-5 py-2.5 hover:bg-brand-700 transition-colors;
+    @apply inline-flex items-center gap-2 rounded-lg bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900;
+    @apply px-5 py-2.5 hover:bg-slate-900 dark:hover:bg-slate-100 transition-colors;
+    @apply font-medium;
+  }
+  
+  /* Vertical Timeline Layout */
+  .timeline {
+    @apply relative pl-8;
+  }
+  
+  .timeline::before {
+    content: '';
+    @apply absolute left-2 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-800;
+  }
+  
+  .timeline-item-wrapper {
+    @apply relative mb-8;
+  }
+  
+  .timeline-item-wrapper::before {
+    content: '';
+    @apply absolute -left-11 top-2 w-3 h-3 rounded-full bg-slate-400 dark:bg-slate-600;
+    @apply border-2 border-white dark:border-slate-900;
+    z-index: 1;
+  }
+  
+  .timeline-item-wrapper:last-child {
+    @apply mb-0;
   }
 }

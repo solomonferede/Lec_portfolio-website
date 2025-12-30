@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ProjectCard } from './Projects.jsx';
+import { useScrollReveal } from '../hooks/useScrollReveal.js';
 
 export default function FeaturedProjects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [sectionRef, isRevealed] = useScrollReveal();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -33,23 +35,25 @@ export default function FeaturedProjects() {
   }, []);
 
   return (
-    <section id="featured-projects" className="section">
-      <div className="flex items-end justify-between mb-6">
-        <div>
-          <h2 className="text-2xl sm:text-3xl font-bold">Featured Projects</h2>
-          <p className="mt-2 text-slate-500 dark:text-slate-400">Selected research and development projects</p>
+    <section id="featured-projects" className="section section-reveal" ref={sectionRef}>
+      <div className={isRevealed ? 'revealed' : ''}>
+        <div className="flex items-end justify-between mb-6">
+          <div>
+            <h2 className="section-heading">Featured Projects</h2>
+            <p className="mt-2 text-slate-500 dark:text-slate-400">Selected research and development projects</p>
+          </div>
+          <Link to="/projects" className="text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-50 hover:underline transition-colors">View all</Link>
         </div>
-        <Link to="/projects" className="text-brand-600 hover:underline">View all</Link>
+        {loading ? (
+          <div className="text-slate-500 dark:text-slate-400">Loading projects...</div>
+        ) : (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.map((p) => (
+              <ProjectCard project={p} key={p.id} />
+            ))}
+          </div>
+        )}
       </div>
-      {loading ? (
-        <div className="text-slate-500 dark:text-slate-400">Loading projects...</div>
-      ) : (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((p, i) => (
-            <ProjectCard project={p} i={i} key={p.id} />
-          ))}
-        </div>
-      )}
     </section>
   );
 }

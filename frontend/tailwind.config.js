@@ -9,27 +9,26 @@ export default {
     extend: {
       colors: {
         brand: {
-          50: '#eefaff',
-          100: '#d9f1ff',
-          200: '#b6e5ff',
-          300: '#82d4ff',
-          400: '#3fbbff',
-          500: '#109cff',
-          600: '#007bff',
-          700: '#0062d1',
-          800: '#0652a1',
-          900: '#0a467f',
+          50: '#f0f4f8',
+          100: '#d9e2ec',
+          200: '#bcccdc',
+          300: '#9fb3c8',
+          400: '#829ab1',
+          500: '#627d98',
+          600: '#486581',
+          700: '#334e68',
+          800: '#243b53',
+          900: '#102a43',
         },
       },
-      boxShadow: {
-        soft: '0 10px 30px -12px rgba(0,0,0,0.25)',
-      },
-      backgroundImage: {
-        grid: 'radial-gradient(circle at 1px 1px, rgba(0,0,0,0.08) 1px, transparent 0)',
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Merriweather', 'Georgia', 'serif'],
       },
     },
   },
   plugins: [],
 }
+
 
 
