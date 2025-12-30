@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="g2" x1="0" x2="1">
+      <stop stop-color="#34d399" offset="0"/>
+      <stop stop-color="#109cff" offset="1"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="#0b1220"/>
+  <rect x="20" y="20" width="760" height="410" rx="22" fill="#0f172a" stroke="#1f2937"/>
+  <rect x="60" y="80" width="680" height="280" rx="18" fill="#0b1220" stroke="#1f2937"/>
+  <rect x="90" y="110" width="620" height="60" rx="10" fill="#0f172a" stroke="#1f2937"/>
+  <rect x="90" y="190" width="180" height="140" rx="10" fill="#0f172a" stroke="#1f2937"/>
+  <rect x="290" y="190" width="420" height="140" rx="10" fill="#0f172a" stroke="#1f2937"/>
+  <text x="100" y="150" fill="url(#g2)" font-size="34" font-family="Segoe UI, Roboto, Arial" font-weight="700">ResourceGuard</text>
+  <text x="100" y="180" fill="#94a3b8" font-size="16" font-family="Segoe UI, Roboto, Arial">Flask • MySQL • Docker • REST</text>
+</svg>
+
+

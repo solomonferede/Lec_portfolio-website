@@ -1,0 +1,8 @@
+# Python virtual environment
+venv/
+.env
+__pycache__/
+*.pyc
+
+# Django specific files
+.env
