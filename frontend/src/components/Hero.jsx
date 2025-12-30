@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { profile } from "../data/data.js";
 import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
+import { SiGooglescholar } from "react-icons/si";
 
 export default function Hero() {
   return (
@@ -14,7 +15,7 @@ export default function Hero() {
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-slate-200/60 dark:border-slate-800/60 px-3 py-1 text-xs mb-4">
             <span className="w-2 h-2 rounded-full bg-emerald-500"></span>{" "}
-            Available for collaboration
+            Seeking research opportunities
           </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
             {profile.name}
@@ -26,13 +27,13 @@ export default function Hero() {
             {profile.tagline}
           </p>
           <div className="mt-8 flex items-center gap-4">
-            <a className="btn-primary" href="#projects">
-              View Projects
+            <a className="btn-primary" href="#featured-projects">
+              View Research
             </a>
             <div className="flex items-center gap-3 text-xl">
               <a
                 aria-label="LinkedIn"
-                href="https://linkedin.com/in/solomonferede"
+                href={profile.contact.linkedin}
                 target="_blank"
                 rel="noreferrer"
                 className="hover:text-brand-600"
@@ -41,7 +42,7 @@ export default function Hero() {
               </a>
               <a
                 aria-label="GitHub"
-                href="https://github.com/solomonferede"
+                href={profile.contact.github}
                 target="_blank"
                 rel="noreferrer"
                 className="hover:text-brand-600"
@@ -49,8 +50,17 @@ export default function Hero() {
                 <FiGithub />
               </a>
               <a
+                aria-label="Google Scholar"
+                href={profile.contact.google_scholar}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-brand-600"
+              >
+                <SiGooglescholar size={20} />
+              </a>
+              <a
                 aria-label="Email"
-                href="mailto:ezezsolomonferede@gmail.com"
+                href={`mailto:${profile.contact.email}`}
                 className="hover:text-brand-600"
               >
                 <FiMail />
@@ -67,7 +77,11 @@ export default function Hero() {
           <div className="card p-2 md:p-4">
             <div className="aspect-[4/3] rounded-xl overflow-hidden border border-slate-200/60 dark:border-slate-800/60 bg-slate-100 dark:bg-slate-800">
               {/* eslint-disable-next-line */}
-              <img src="/images/profile.jpg" alt="Profile" className="w-full h-full object-cover" />
+              <img
+                src="/images/profile.jpg"
+                alt="Profile"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </motion.div>

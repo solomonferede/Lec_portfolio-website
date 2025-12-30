@@ -1,8 +1,7 @@
 import Hero from '../components/Hero.jsx';
 import FeaturedProjects from '../components/FeaturedProjects.jsx';
 import QuickAbout from '../components/QuickAbout.jsx';
-import LatestBlogPosts from '../components/LatestBlogPosts.jsx';
-import ContactTeaser from '../components/ContactTeaser.jsx';
+import FeaturedPublications from '../components/FeaturedPublications.jsx';
 
 export default function Home() {
   return (
@@ -10,8 +9,7 @@ export default function Home() {
       <Hero />
       <FeaturedProjects />
       <QuickAbout />
-      <LatestBlogPosts />
-      <ContactTeaser />
+      <FeaturedPublications />
     </div>
   );
 }

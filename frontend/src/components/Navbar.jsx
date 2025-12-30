@@ -8,9 +8,8 @@ export default function Navbar({ onToggleTheme, isDark }) {
   const items = [
     { type: 'route', href: '/', label: 'Home' },
     { type: 'route', href: '/about', label: 'About' },
-    { type: 'route', href: '/projects', label: 'Projects' },
-    { type: 'route', href: '/blogs', label: 'Blog' },
-    { type: 'route', href: '/contact', label: 'Contact' },
+    { type: 'route', href: '/projects', label: 'Research' },
+    { type: 'route', href: '/publications', label: 'Publications' },
   ];
 
   return (

@@ -1,18 +1,23 @@
-import { Link } from 'react-router-dom';
-import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
+import { Link } from "react-router-dom";
+import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
+import { SiGooglescholar } from "react-icons/si";
+import { profile } from "../data/data";
 
 export default function Footer() {
   const socialLinks = [
-    { icon: <FiGithub />, href: 'https://github.com/solomonferede' },
-    { icon: <FiLinkedin />, href: 'https://linkedin.com/in/solomonferede' },
-    { icon: <FiMail />, href: 'mailto:ezezsolomonferede@gmail.com' },
+    { icon: <FiGithub />, href: profile.contact.github },
+    { icon: <FiLinkedin />, href: profile.contact.linkedin },
+    {
+      icon: <SiGooglescholar size={20} />,
+      href: profile.contact.google_scholar,
+    },
+    { icon: <FiMail />, href: `mailto:${profile.contact.email}` },
   ];
 
   const navLinks = [
-    { href: '/about', label: 'About' },
-    { href: '/projects', label: 'Projects' },
-    { href: '/blogs', label: 'Blog' },
-    { href: '/contact', label: 'Contact' },
+    { href: "/about", label: "About" },
+    { href: "/projects", label: "Research" },
+    { href: "/publications", label: "Publications" },
   ];
 
   return (
@@ -26,7 +31,11 @@ export default function Footer() {
           </div>
           <div className="flex items-center gap-8">
             {navLinks.map((link) => (
-              <Link key={link.href} to={link.href} className="text-sm hover:text-brand-600">
+              <Link
+                key={link.href}
+                to={link.href}
+                className="text-sm hover:text-brand-600"
+              >
                 {link.label}
               </Link>
             ))}
@@ -46,7 +55,10 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-8 text-center text-sm text-slate-500 dark:text-slate-400">
-          <p>&copy; {new Date().getFullYear()} Solomon Ferede. All rights reserved.</p>
+          <p>
+            &copy; {new Date().getFullYear()} Solomon Ferede. All rights
+            reserved.
+          </p>
         </div>
       </div>
     </footer>
