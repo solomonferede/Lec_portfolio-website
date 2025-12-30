@@ -10,10 +10,20 @@ def download_cv(request):
     return response
 
 
-from .models import Project, Blog
+from .models import (
+    Project, Blog, Teaching, ResearchInterest, Award,
+    Publication, Experience, Education, Skill
+)
 from .serializers import (
     ProjectSerializer,
     BlogSerializer,
+    TeachingSerializer,
+    ResearchInterestSerializer,
+    AwardSerializer,
+    PublicationSerializer,
+    ExperienceSerializer,
+    EducationSerializer,
+    SkillSerializer,
 )
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -35,3 +45,43 @@ class BlogViewSet(viewsets.ModelViewSet):
         if limit:
             return queryset[:int(limit)]
         return queryset
+
+
+class TeachingViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = TeachingSerializer
+    queryset = Teaching.objects.all()
+
+
+class ResearchInterestViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = ResearchInterestSerializer
+    queryset = ResearchInterest.objects.all()
+
+
+class AwardViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = AwardSerializer
+    queryset = Award.objects.all()
+
+
+class PublicationViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = PublicationSerializer
+
+    def get_queryset(self):
+        queryset = Publication.objects.all()
+        if self.request.query_params.get('featured') == 'true':
+            return queryset.filter(is_featured=True)
+        return queryset
+
+
+class ExperienceViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = ExperienceSerializer
+    queryset = Experience.objects.all()
+
+
+class EducationViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = EducationSerializer
+    queryset = Education.objects.all()
+
+
+class SkillViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = SkillSerializer
+    queryset = Skill.objects.all()

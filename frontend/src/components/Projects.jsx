@@ -78,8 +78,8 @@ export default function Projects() {
     <section id="projects" className="section">
       <div className="flex items-end justify-between mb-6">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-bold">Highlighted Projects</h2>
-          <p className="mt-2 text-slate-500 dark:text-slate-400">Selected work that aligns with practical impact</p>
+          <h2 className="text-2xl sm:text-3xl font-bold">Projects</h2>
+          <p className="mt-2 text-slate-500 dark:text-slate-400">Research and development projects</p>
         </div>
       </div>
       {loading ? (

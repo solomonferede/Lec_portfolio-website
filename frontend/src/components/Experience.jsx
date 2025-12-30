@@ -19,7 +19,7 @@ export default function Experience() {
               </div>
             </div>
             <div className="text-sm text-slate-500 dark:text-slate-400">
-              📍 {exp.organisation}
+              {exp.organisation}
             </div>
             <ul className="mt-2 list-disc pl-5 text-slate-600 dark:text-slate-300 space-y-1">
               {exp.responsibilities.map((resp, i) => (

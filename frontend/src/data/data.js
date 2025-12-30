@@ -1,17 +1,18 @@
 export const profile = {
   name: 'Solomon Ferede Ezez',
   role: 'Lecturer in Electrical and Computer Engineering',
-  tagline: 'Experienced Electrical and Computer Engineering lecturer at Wolaita Sodo University with a strong academic foundation and industry expertise.',
+  tagline: 'Lecturer in Electrical and Computer Engineering at Wolaita Sodo University with expertise in control systems, embedded systems, and software engineering.',
   about: [
-    "An experienced Electrical and Computer Engineering lecturer at Wolaita Sodo University with a strong academic foundation and industry expertise. He holds a BSc in Electrical and Computer Engineering and an MSc in Control Systems Engineering.",
-    "His professional background includes hands-on experience in Ethiopia’s electric power generation sector, enhancing the practical relevance of his teaching. Additionally, he is a certified software engineer from ALX, where he developed strong programming skills in Python and C."
+    "Solomon Ferede Ezez is a Lecturer in Electrical and Computer Engineering at Wolaita Sodo University. He holds a Bachelor of Science degree in Electrical and Computer Engineering from Hawassa University and a Master of Science degree in Control Systems Engineering from Bahir Dar University.",
+    "His professional experience spans both academia and industry, including roles in Ethiopia's electric power generation sector. He has also completed software engineering certification programs, developing expertise in Python, C, and related technologies. His research interests focus on control systems, embedded systems, and their applications in industrial and academic settings."
   ],
   contact: {
-    email: 'solomon.ferede@wsu.edu.et', // Primary academic email
+    email: 'solomon.ferede@wsu.edu.et',
     linkedin: 'https://linkedin.com/in/solomonferede',
     github: 'https://github.com/solomonferede',
+    google_scholar: '', // To be added from profile.pdf
   },
-  footer: '© 2025 Solomon Ferede Ezez — Clean Energy for a Better Life', // Emojis removed
+  footer: '© 2025 Solomon Ferede Ezez',
 };
 
 export const projects = [
@@ -85,57 +86,57 @@ export const experience = [
         responsibilities: []
     },
     {
-        role: "Website Expert (Mostly Remote)",
+        role: "Website Expert",
         organisation: "Ethiopian Electric Power",
         startDate: "01/2024",
         endDate: "Current",
         responsibilities: []
     },
     {
-        role: "Assistant Lecturer in University",
-        organisation: "Wolaita Sodo University",
-        startDate: "11/2018",
-        endDate: "11/2019",
+        role: "Database Assistant",
+        organisation: "AidRigs, Remote, United States",
+        startDate: "09/2024",
+        endDate: "11/2024",
         responsibilities: []
     },
     {
-        role: "Junior Electrical Engineer (Temporary Role During the COVID-19 Period)",
+        role: "Junior Electrical Engineer",
         organisation: "Ethiopian Electric Power",
         startDate: "10/2020",
         endDate: "09/2021",
         responsibilities: []
     },
     {
-        role: "Database Assistant",
-        organisation: "AidRigs, Remote, United States",
-        startDate: "28/09/2024",
-        endDate: "20/11/2024",
+        role: "Database Administrator II",
+        organisation: "Wolaita Sodo University",
+        startDate: "12/2018",
+        endDate: "01/2021",
         responsibilities: []
     },
     {
-        role: "Database Administrator II",
+        role: "Assistant Lecturer",
         organisation: "Wolaita Sodo University",
-        startDate: "08/12/2018",
-        endDate: "01/2021",
+        startDate: "11/2018",
+        endDate: "11/2019",
         responsibilities: []
     }
 ];
 
 export const education = [
     {
-        degree: "Master Of Science Degree in Control System Engineering",
+        degree: "Master of Science in Control Systems Engineering",
         institution: "Bahir Dar University",
         startDate: "10/2019",
         endDate: "08/2022"
     },
     {
-        degree: "Bachelor of Science degree in Electrical and Computer Engineering",
+        degree: "Bachelor of Science in Electrical and Computer Engineering",
         institution: "Hawassa University",
         startDate: "09/2013",
         endDate: "06/2018"
     },
     {
-        degree: "Certificate in Software Engineering (Online)",
+        degree: "Certificate in Software Engineering",
         institution: "ALX Africa",
         startDate: "07/2023",
         endDate: "Current"
@@ -143,35 +144,46 @@ export const education = [
     {
         degree: "ALX Professional Foundations",
         institution: "ALX Africa",
-        startDate: "01/07/2025",
-        endDate: "30/09/2025"
+        startDate: "07/2025",
+        endDate: "09/2025"
+    },
+    {
+        degree: "AI for Developers II",
+        institution: "ALX Africa",
+        startDate: "08/2025",
+        endDate: "09/2025"
     },
     {
         degree: "ALX Virtual Assistant",
         institution: "ALX Africa",
         startDate: "08/2022",
         endDate: "10/2022"
-    },
-    {
-        degree: "AI for Developers II",
-        institution: "ALX Africa",
-        startDate: "20/08/2025",
-        endDate: "24/09/2025"
     }
 ];
 
-// Publications are not listed in the Europass profile.
+// Publications - to be updated from profile.pdf
 export const publications = [];
+
+// Research Interests - to be updated from profile.pdf
+export const researchInterests = [
+  {
+    title: '[Content to be added later]',
+    description: '[Content to be added later]'
+  }
+];
+
+// Teaching - to be updated from profile.pdf
+export const teaching = [];
 
 export const awards = [
     {
         title: 'Certificate of Participation in the 2017/18 Business Idea Competition and Incubation',
         date: '2018',
-        issuer: 'N/A' // Not specified in Europass
+        issuer: 'Hawassa University Incubation Center'
     },
     {
         title: 'Certificate of Participation - YEEP International Exposure Week',
         date: '02/2018',
-        issuer: 'YEEP' // Inferred
+        issuer: 'YEEP'
     }
 ];

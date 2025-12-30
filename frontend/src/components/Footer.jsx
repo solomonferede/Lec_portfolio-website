@@ -7,12 +7,12 @@ export default function Footer() {
   const socialLinks = [
     { icon: <FiGithub />, href: profile.contact.github },
     { icon: <FiLinkedin />, href: profile.contact.linkedin },
-    {
+    profile.contact.google_scholar && {
       icon: <SiGooglescholar size={20} />,
       href: profile.contact.google_scholar,
     },
     { icon: <FiMail />, href: `mailto:${profile.contact.email}` },
-  ];
+  ].filter(Boolean);
 
   const navLinks = [
     { href: "/about", label: "About" },

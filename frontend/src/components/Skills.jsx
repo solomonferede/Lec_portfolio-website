@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 export default function Skills() {
   return (
     <section id="skills" className="section">
-      <h2 className="text-2xl sm:text-3xl font-bold">Technical Skills</h2>
-      <p className="mt-2 text-slate-500 dark:text-slate-400">My technical skills and expertise.</p>
+      <h2 className="text-2xl sm:text-3xl font-bold">Skills & Expertise</h2>
+      <p className="mt-2 text-slate-500 dark:text-slate-400">Technical skills and areas of expertise</p>
       <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {skills.map((s, i) => (
           <motion.div

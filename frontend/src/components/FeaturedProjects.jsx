@@ -36,8 +36,8 @@ export default function FeaturedProjects() {
     <section id="featured-projects" className="section">
       <div className="flex items-end justify-between mb-6">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-bold">Featured Research & Projects</h2>
-          <p className="mt-2 text-slate-500 dark:text-slate-400">A selection of my research and projects.</p>
+          <h2 className="text-2xl sm:text-3xl font-bold">Featured Projects</h2>
+          <p className="mt-2 text-slate-500 dark:text-slate-400">Selected research and development projects</p>
         </div>
         <Link to="/projects" className="text-brand-600 hover:underline">View all</Link>
       </div>

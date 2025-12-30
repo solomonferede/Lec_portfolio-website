@@ -49,15 +49,17 @@ export default function Hero() {
               >
                 <FiGithub />
               </a>
-              <a
-                aria-label="Google Scholar"
-                href={profile.contact.google_scholar}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-brand-600"
-              >
-                <SiGooglescholar size={20} />
-              </a>
+              {profile.contact.google_scholar && (
+                <a
+                  aria-label="Google Scholar"
+                  href={profile.contact.google_scholar}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-brand-600"
+                >
+                  <SiGooglescholar size={20} />
+                </a>
+              )}
               <a
                 aria-label="Email"
                 href={`mailto:${profile.contact.email}`}

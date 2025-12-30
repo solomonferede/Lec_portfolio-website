@@ -19,7 +19,7 @@ export default function Education() {
               </div>
             </div>
             <div className="text-sm text-slate-500 dark:text-slate-400">
-              📍 {edu.institution}
+              {edu.institution}
             </div>
           </div>
         ))}
