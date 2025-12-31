@@ -39,6 +39,7 @@ export function ProjectCard({ project }) {
 
 import { useEffect, useState } from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal.js';
+import { fetchAll, getBaseUrl } from '../utils/api.js';
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
@@ -47,10 +48,12 @@ export default function Projects() {
 
   useEffect(() => {
     const controller = new AbortController();
-    const base = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
-    fetch(`${base}/projects/`, { signal: controller.signal })
-      .then((res) => res.json())
+    let isMounted = true;
+
+    fetchAll('/projects/')
       .then((data) => {
+        if (!isMounted) return;
+        const base = getBaseUrl().replace('/api', '');
         const normalized = (Array.isArray(data) ? data : [])
           .map((p) => ({
             id: p.id,
@@ -62,13 +65,24 @@ export default function Projects() {
               .filter(Boolean),
             live_link: p.live_link,
             github_link: p.github_link,
-            image: p.featured_image || '/vite.svg',
+            image: p.featured_image 
+              ? (p.featured_image.startsWith('http') ? p.featured_image : `${base}${p.featured_image}`)
+              : '/vite.svg',
           }));
         setProjects(normalized);
       })
-      .catch(() => {})
-      .finally(() => setLoading(false));
-    return () => controller.abort();
+      .catch((error) => {
+        if (error.name !== 'AbortError' && isMounted) {
+          console.error('Failed to fetch projects:', error);
+        }
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
   }, []);
 
   return (

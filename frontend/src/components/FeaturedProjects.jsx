@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ProjectCard } from './Projects.jsx';
 import { useScrollReveal } from '../hooks/useScrollReveal.js';
+import { fetchFromAPI, getBaseUrl } from '../utils/api.js';
 
 export default function FeaturedProjects() {
   const [projects, setProjects] = useState([]);
@@ -11,14 +12,11 @@ export default function FeaturedProjects() {
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
-    const base = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
-    fetch(`${base}/projects/?featured=true`, { signal: controller.signal })
-      .then((res) => {
-        if (!res.ok) throw new Error('Failed to fetch');
-        return res.json();
-      })
+
+    fetchFromAPI('/projects/?featured=true')
       .then((data) => {
         if (!isMounted) return;
+        const base = getBaseUrl().replace('/api', '');
         const normalized = (Array.isArray(data) ? data : [])
           .map((p) => ({
             id: p.id,
@@ -30,7 +28,9 @@ export default function FeaturedProjects() {
               .filter(Boolean),
             live_link: p.live_link,
             github_link: p.github_link,
-            image: p.featured_image || '/vite.svg',
+            image: p.featured_image 
+              ? (p.featured_image.startsWith('http') ? p.featured_image : `${base}${p.featured_image}`)
+              : '/vite.svg',
           }));
         setProjects(normalized);
       })

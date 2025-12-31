@@ -1,23 +1,35 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import { fetchById, getBaseUrl } from "../utils/api.js";
 
 export default function ProjectDetail() {
   const { id } = useParams();
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Move base definition here — outside useEffect
-  const base = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api";
-
   useEffect(() => {
     const controller = new AbortController();
-    fetch(`${base}/projects/${id}/`, { signal: controller.signal })
-      .then((res) => res.json())
-      .then((data) => setProject(data))
-      .catch(() => {})
-      .finally(() => setLoading(false));
-    return () => controller.abort();
-  }, [id, base]); // ✅ include base in dependency array
+    let isMounted = true;
+
+    fetchById('/projects/', id)
+      .then((data) => {
+        if (!isMounted) return;
+        setProject(data);
+      })
+      .catch((error) => {
+        if (error.name !== 'AbortError' && isMounted) {
+          console.error('Failed to fetch project:', error);
+        }
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
+  }, [id]);
 
   if (loading) return <section className="section">Loading...</section>;
   if (!project) return <section className="section">Not found</section>;
@@ -37,9 +49,12 @@ export default function ProjectDetail() {
 
       {project.featured_image && (
         <div className="aspect-video bg-slate-100 dark:bg-slate-800 rounded-xl overflow-hidden mb-6">
-          {/* ✅ base now accessible here */}
           <img
-            src={project.featured_image}
+            src={
+              project.featured_image.startsWith('http')
+                ? project.featured_image
+                : `${getBaseUrl().replace('/api', '')}${project.featured_image}`
+            }
             alt={project.title}
             className="w-full h-full object-cover"
           />

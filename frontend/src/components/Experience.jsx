@@ -1,6 +1,6 @@
-import { experience } from "../data/data.js";
 import { useScrollReveal } from "../hooks/useScrollReveal.js";
 import { useEffect, useRef, useState } from "react";
+import { fetchAll } from "../utils/api.js";
 
 function TimelineItem({ exp, index }) {
   const [isRevealed, setIsRevealed] = useState(false);
@@ -36,6 +36,13 @@ function TimelineItem({ exp, index }) {
     };
   }, []);
 
+  // Parse responsibilities if it's a string (comma or newline separated)
+  const responsibilities = exp.responsibilities 
+    ? (typeof exp.responsibilities === 'string' 
+        ? exp.responsibilities.split(/[,\n]/).map(r => r.trim()).filter(Boolean)
+        : Array.isArray(exp.responsibilities) ? exp.responsibilities : [])
+    : [];
+
   return (
     <div className="timeline-item-wrapper">
       <div 
@@ -47,15 +54,21 @@ function TimelineItem({ exp, index }) {
             {exp.role}
           </div>
           <div className="text-sm text-slate-500 dark:text-slate-400">
-            {exp.startDate} – {exp.endDate}
+            {exp.start_date && exp.end_date ? `${exp.start_date} – ${exp.end_date}` : exp.start_date || exp.end_date || ''}
           </div>
         </div>
         <div className="text-sm text-slate-600 dark:text-slate-400 mb-2">
           {exp.organisation}
+          {exp.location && ` • ${exp.location}`}
         </div>
-        {exp.responsibilities && exp.responsibilities.length > 0 && (
+        {exp.description && (
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
+            {exp.description}
+          </p>
+        )}
+        {responsibilities.length > 0 && (
           <ul className="mt-3 list-disc pl-5 text-slate-600 dark:text-slate-300 space-y-1 text-sm">
-            {exp.responsibilities.map((resp, i) => (
+            {responsibilities.map((resp, i) => (
               <li key={i}>{resp}</li>
             ))}
           </ul>
@@ -66,7 +79,33 @@ function TimelineItem({ exp, index }) {
 }
 
 export default function Experience() {
+  const [experience, setExperience] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [sectionRef, isRevealed] = useScrollReveal();
+
+  useEffect(() => {
+    const controller = new AbortController();
+    let isMounted = true;
+
+    fetchAll('/experience/')
+      .then((data) => {
+        if (!isMounted) return;
+        setExperience(data);
+      })
+      .catch((error) => {
+        if (error.name !== 'AbortError' && isMounted) {
+          console.error('Failed to fetch experience:', error);
+        }
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
+  }, []);
 
   return (
     <section id="experience" className="section section-reveal" ref={sectionRef}>
@@ -75,11 +114,19 @@ export default function Experience() {
         <p className="mt-2 text-slate-500 dark:text-slate-400">
           Professional experience and roles
         </p>
-        <div className="mt-8 timeline">
-          {experience.map((exp, index) => (
-            <TimelineItem key={index} exp={exp} index={index} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="mt-8 text-slate-500 dark:text-slate-400">Loading experience...</div>
+        ) : (
+          <div className="mt-8 timeline">
+            {experience.length > 0 ? (
+              experience.map((exp, index) => (
+                <TimelineItem key={exp.id} exp={exp} index={index} />
+              ))
+            ) : (
+              <p className="text-slate-600 dark:text-slate-300">No experience records available</p>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );
