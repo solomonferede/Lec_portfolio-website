@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useScrollReveal } from '../hooks/useScrollReveal.js';
+import { useStaggeredAnimation } from '../hooks/useStaggeredAnimation.js';
 import { fetchAll, getBaseUrl } from '../utils/api.js';
 
 export default function BlogPage() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sectionRef, isRevealed] = useScrollReveal();
+  const [containerRef, revealedItems] = useStaggeredAnimation({ delay: 100 });
 
   useEffect(() => {
     const controller = new AbortController();
@@ -65,9 +67,13 @@ export default function BlogPage() {
               <p className="text-slate-600 dark:text-slate-300">No blog posts available yet.</p>
             </div>
           ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {blogs.map((blog) => (
-                <Link key={blog.id} to={`/blog/${blog.slug}`} className="card overflow-hidden hover:shadow-lg transition-shadow">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" ref={containerRef}>
+              {blogs.map((blog, index) => (
+                <Link
+                  key={blog.id}
+                  to={`/blog/${blog.slug}`}
+                  className={`card overflow-hidden hover:shadow-lg transition-shadow animate-item ${revealedItems.has(index) ? 'revealed' : ''}`}
+                >
                   {blog.cover_image && (
                     <div className="aspect-video bg-slate-100 dark:bg-slate-800">
                       <img

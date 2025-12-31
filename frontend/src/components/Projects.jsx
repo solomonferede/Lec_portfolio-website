@@ -39,12 +39,14 @@ export function ProjectCard({ project }) {
 
 import { useEffect, useState } from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal.js';
+import { useStaggeredAnimation } from '../hooks/useStaggeredAnimation.js';
 import { fetchAll, getBaseUrl } from '../utils/api.js';
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sectionRef, isRevealed] = useScrollReveal();
+  const [containerRef, revealedItems] = useStaggeredAnimation({ delay: 100 });
 
   useEffect(() => {
     const controller = new AbortController();
@@ -97,9 +99,14 @@ export default function Projects() {
         {loading ? (
           <div className="text-slate-500 dark:text-slate-400">Loading projects...</div>
         ) : (
-          <div className="grid sm:grid-cols-2 gap-6">
-            {projects.map((p) => (
-              <ProjectCard key={p.id} project={p} />
+          <div className="grid sm:grid-cols-2 gap-6" ref={containerRef}>
+            {projects.map((p, index) => (
+              <div
+                key={p.id}
+                className={`animate-item ${revealedItems.has(index) ? 'revealed' : ''}`}
+              >
+                <ProjectCard project={p} />
+              </div>
             ))}
           </div>
         )}

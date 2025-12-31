@@ -1,11 +1,14 @@
 import { profile } from '../data/data.jsx';
 import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
 import { FaGoogleScholar } from "react-icons/fa";
+import { useScrollReveal } from '../hooks/useScrollReveal.js';
 
 export default function Contact() {
   const { contact } = profile;
+  const [sectionRef, isRevealed] = useScrollReveal();
   return (
-    <section id="contact" className="section">
+    <section id="contact" className="section section-reveal" ref={sectionRef}>
+      <div className={isRevealed ? 'revealed' : ''}>
       <div>
         <h1 className="section-heading text-3xl mb-2">Contact</h1>
         <p className="mt-2 text-slate-500 dark:text-slate-400 mb-6">
@@ -36,6 +39,7 @@ export default function Contact() {
             </a>
           )}
         </div>
+      </div>
       </div>
     </section>
   );

@@ -41,8 +41,12 @@ export default function Skills() {
         ) : (
           <div className="mt-6 flex flex-wrap gap-3">
             {skills.length > 0 ? (
-              skills.map((skill) => (
-                <span key={skill.id} className="tag">
+              skills.map((skill, index) => (
+                <span
+                  key={skill.id}
+                  className={`tag fade-in ${isRevealed ? 'revealed' : ''}`}
+                  style={{ transitionDelay: `${index * 50}ms` }}
+                >
                   {skill.name}
                 </span>
               ))

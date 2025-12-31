@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal.js';
+import { useStaggeredAnimation } from '../hooks/useStaggeredAnimation.js';
 import { fetchAll } from '../utils/api.js';
 
 export default function Certificates() {
   const [awards, setAwards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sectionRef, isRevealed] = useScrollReveal();
+  const [containerRef, revealedItems] = useStaggeredAnimation({ delay: 100 });
 
   useEffect(() => {
     const controller = new AbortController();
@@ -39,10 +41,13 @@ export default function Certificates() {
         {loading ? (
           <div className="mt-6 text-slate-500 dark:text-slate-400">Loading awards...</div>
         ) : (
-          <div className="mt-6 space-y-4">
+          <div className="mt-6 space-y-4" ref={containerRef}>
             {awards.length > 0 ? (
-              awards.map((award) => (
-                <div key={award.id} className="card p-5">
+              awards.map((award, index) => (
+                <div
+                  key={award.id}
+                  className={`card p-5 animate-item ${revealedItems.has(index) ? 'revealed' : ''}`}
+                >
                   <div className="font-semibold text-slate-900 dark:text-slate-50">{award.title}</div>
                   {award.issuer && (
                     <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">

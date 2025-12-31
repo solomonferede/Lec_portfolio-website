@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal.js';
+import { useStaggeredAnimation } from '../hooks/useStaggeredAnimation.js';
 import { fetchAll } from '../utils/api.js';
 
 export default function Teaching() {
   const [teaching, setTeaching] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sectionRef, isRevealed] = useScrollReveal();
+  const [containerRef, revealedItems] = useStaggeredAnimation({ delay: 100 });
 
   useEffect(() => {
     const controller = new AbortController();
@@ -45,9 +47,12 @@ export default function Teaching() {
             <p className="text-slate-600 dark:text-slate-300">[Content to be added later]</p>
           </div>
         ) : (
-          <div className="mt-6 space-y-4">
-            {teaching.map((course) => (
-              <div key={course.id} className="card p-5">
+          <div className="mt-6 space-y-4" ref={containerRef}>
+            {teaching.map((course, index) => (
+              <div
+                key={course.id}
+                className={`card p-5 animate-item ${revealedItems.has(index) ? 'revealed' : ''}`}
+              >
                 <div className="flex flex-wrap justify-between gap-2">
                   <div className="font-semibold text-slate-900 dark:text-slate-50">
                     {course.course_title}

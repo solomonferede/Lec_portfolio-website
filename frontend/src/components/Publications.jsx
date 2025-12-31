@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal.js';
+import { useStaggeredAnimation } from '../hooks/useStaggeredAnimation.js';
 import { fetchAll } from '../utils/api.js';
 
 export default function Publications() {
   const [publications, setPublications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sectionRef, isRevealed] = useScrollReveal();
+  const [containerRef, revealedItems] = useStaggeredAnimation({ delay: 100 });
 
   useEffect(() => {
     const controller = new AbortController();
@@ -39,14 +41,17 @@ export default function Publications() {
         {loading ? (
           <div className="mt-6 text-slate-500 dark:text-slate-400">Loading publications...</div>
         ) : (
-          <div className="mt-6 space-y-4">
+          <div className="mt-6 space-y-4" ref={containerRef}>
             {publications.length === 0 ? (
               <div className="card p-5">
                 <p className="text-slate-600 dark:text-slate-300">Working Papers / In Preparation</p>
               </div>
             ) : (
-              publications.map((pub) => (
-                <div key={pub.id} className="card p-5">
+              publications.map((pub, index) => (
+                <div
+                  key={pub.id}
+                  className={`card p-5 animate-item ${revealedItems.has(index) ? 'revealed' : ''}`}
+                >
                   <div className="flex flex-wrap justify-between gap-2 mb-2">
                     <div className="font-semibold text-slate-900 dark:text-slate-50">{pub.title}</div>
                     {pub.year && (

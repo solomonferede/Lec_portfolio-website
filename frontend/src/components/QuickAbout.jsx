@@ -67,8 +67,12 @@ export default function QuickAbout() {
             ) : (
               <div className="mt-4 flex flex-wrap gap-3">
                 {skills.length > 0 ? (
-                  skills.slice(0, 6).map((skill) => (
-                    <span key={skill.id} className="tag">
+                  skills.slice(0, 6).map((skill, index) => (
+                    <span
+                      key={skill.id}
+                      className={`tag fade-in ${isRevealed ? 'revealed' : ''}`}
+                      style={{ transitionDelay: `${index * 50}ms` }}
+                    >
                       {skill.name}
                     </span>
                   ))

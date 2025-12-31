@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ProjectCard } from './Projects.jsx';
 import { useScrollReveal } from '../hooks/useScrollReveal.js';
+import { useStaggeredAnimation } from '../hooks/useStaggeredAnimation.js';
 import { fetchFromAPI, getBaseUrl } from '../utils/api.js';
 
 export default function FeaturedProjects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sectionRef, isRevealed] = useScrollReveal();
+  const [containerRef, revealedItems] = useStaggeredAnimation({ delay: 150 });
 
   useEffect(() => {
     let isMounted = true;
@@ -61,9 +63,14 @@ export default function FeaturedProjects() {
         {loading ? (
           <div className="text-slate-500 dark:text-slate-400">Loading projects...</div>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((p) => (
-              <ProjectCard project={p} key={p.id} />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" ref={containerRef}>
+            {projects.map((p, index) => (
+              <div
+                key={p.id}
+                className={`animate-item ${revealedItems.has(index) ? 'revealed' : ''}`}
+              >
+                <ProjectCard project={p} />
+              </div>
             ))}
           </div>
         )}

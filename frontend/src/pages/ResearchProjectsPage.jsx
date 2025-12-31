@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal.js';
+import { useStaggeredAnimation } from '../hooks/useStaggeredAnimation.js';
 import { fetchAll } from '../utils/api.js';
 import Projects from '../components/Projects.jsx';
 
@@ -7,6 +8,7 @@ export default function ResearchProjectsPage() {
   const [researchInterests, setResearchInterests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sectionRef, isRevealed] = useScrollReveal();
+  const [containerRef, revealedItems] = useStaggeredAnimation({ delay: 150 });
 
   useEffect(() => {
     const controller = new AbortController();
@@ -47,9 +49,12 @@ export default function ResearchProjectsPage() {
               <p className="text-slate-600 dark:text-slate-300">[Content to be added later]</p>
             </div>
           ) : (
-            <div className="space-y-4">
-              {researchInterests.map((interest) => (
-                <div key={interest.id} className="card p-6">
+            <div className="space-y-4" ref={containerRef}>
+              {researchInterests.map((interest, index) => (
+                <div
+                  key={interest.id}
+                  className={`card p-6 animate-item ${revealedItems.has(index) ? 'revealed' : ''}`}
+                >
                   <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-50 mb-3">
                     {interest.title}
                   </h3>

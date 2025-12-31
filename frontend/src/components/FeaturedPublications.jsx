@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useScrollReveal } from '../hooks/useScrollReveal.js';
+import { useStaggeredAnimation } from '../hooks/useStaggeredAnimation.js';
 import { fetchFromAPI } from '../utils/api.js';
 
 export default function FeaturedPublications() {
   const [publications, setPublications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sectionRef, isRevealed] = useScrollReveal();
+  const [containerRef, revealedItems] = useStaggeredAnimation({ delay: 150 });
 
   useEffect(() => {
     const controller = new AbortController();
@@ -47,9 +49,12 @@ export default function FeaturedPublications() {
           </div>
           <Link to="/publications" className="text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-50 hover:underline transition-colors">View all</Link>
         </div>
-        <div className="grid sm:grid-cols-2 gap-6">
-          {publications.map((pub) => (
-            <div key={pub.id} className="card p-5">
+        <div className="grid sm:grid-cols-2 gap-6" ref={containerRef}>
+          {publications.map((pub, index) => (
+            <div
+              key={pub.id}
+              className={`card p-5 animate-item ${revealedItems.has(index) ? 'revealed' : ''}`}
+            >
               <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50">{pub.title}</h3>
               {pub.authors && (
                 <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{pub.authors}</p>

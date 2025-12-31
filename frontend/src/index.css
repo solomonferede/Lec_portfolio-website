@@ -42,9 +42,9 @@ html {
 /* Section Reveal Animation */
 @layer utilities {
   .section-reveal > div:first-child {
-    opacity: 1;
-    transform: translateY(10px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -59,6 +59,48 @@ html {
     .section-reveal > div:first-child {
       opacity: 1;
       transform: none;
+      transition: none;
+    }
+  }
+
+  /* Staggered animation for grid items */
+  .animate-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .animate-item.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-item {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* Fade in animation */
+  .fade-in {
+    opacity: 0;
+    transition: opacity 0.6s ease-out;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .fade-in.revealed {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in {
+      opacity: 1;
+      transition: none;
     }
   }
 }
