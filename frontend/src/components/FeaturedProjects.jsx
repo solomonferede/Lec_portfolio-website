@@ -9,11 +9,16 @@ export default function FeaturedProjects() {
   const [sectionRef, isRevealed] = useScrollReveal();
 
   useEffect(() => {
+    let isMounted = true;
     const controller = new AbortController();
     const base = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
     fetch(`${base}/projects/?featured=true`, { signal: controller.signal })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch');
+        return res.json();
+      })
       .then((data) => {
+        if (!isMounted) return;
         const normalized = (Array.isArray(data) ? data : [])
           .map((p) => ({
             id: p.id,
@@ -29,9 +34,18 @@ export default function FeaturedProjects() {
           }));
         setProjects(normalized);
       })
-      .catch(() => {})
-      .finally(() => setLoading(false));
-    return () => controller.abort();
+      .catch((err) => {
+        if (err.name !== 'AbortError' && isMounted) {
+          console.error('Failed to fetch featured projects:', err);
+        }
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
   }, []);
 
   return (
