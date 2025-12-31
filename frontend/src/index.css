@@ -41,25 +41,33 @@ html {
 
 /* Section Reveal Animation */
 @layer utilities {
+  /* Default: content is always visible */
   .section-reveal > div:first-child {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    opacity: 1;
+    transform: translateY(0);
   }
 
   @media (prefers-reduced-motion: no-preference) {
+    /* Apply animation only when content doesn't have revealed class */
+    .section-reveal > div:first-child:not(.revealed) {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    /* Revealed state - always visible */
     .section-reveal.revealed > div:first-child,
-    .section-reveal > .revealed {
-      opacity: 1;
-      transform: translateY(0);
+    .section-reveal > div:first-child.revealed {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .section-reveal > div:first-child {
-      opacity: 1;
-      transform: none;
-      transition: none;
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
     }
   }
 
