@@ -39,7 +39,7 @@ export default function RecentProjects() {
           <h2 className="text-2xl sm:text-3xl font-bold">Recent Projects</h2>
           <p className="mt-2 text-slate-500 dark:text-slate-400">Latest work and experiments</p>
         </div>
-        <Link to="/projects" className="text-brand-600 hover:underline">View all</Link>
+        <Link to="/research-projects" className="text-brand-600 hover:underline">View all</Link>
       </div>
       {loading ? (
         <div className="text-slate-500 dark:text-slate-400">Loading projects...</div>

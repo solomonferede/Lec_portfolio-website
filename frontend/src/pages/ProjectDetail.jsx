@@ -42,8 +42,8 @@ export default function ProjectDetail() {
   return (
     <section className="section">
       <div className="mb-4">
-        <Link to="/projects" className="text-sm text-brand-600 hover:underline">
-          ← Back to Projects
+        <Link to="/research-projects" className="text-sm text-brand-600 hover:underline">
+          ← Back to Research & Projects
         </Link>
       </div>
 

@@ -56,7 +56,7 @@ export default function FeaturedProjects() {
             <h2 className="section-heading">Featured Projects</h2>
             <p className="mt-2 text-slate-500 dark:text-slate-400">Selected research and development projects</p>
           </div>
-          <Link to="/projects" className="text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-50 hover:underline transition-colors">View all</Link>
+          <Link to="/research-projects" className="text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-50 hover:underline transition-colors">View all</Link>
         </div>
         {loading ? (
           <div className="text-slate-500 dark:text-slate-400">Loading projects...</div>

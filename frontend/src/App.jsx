@@ -1,12 +1,12 @@
 import Navbar from './components/Navbar.jsx';
-import Projects from './components/Projects.jsx';
-import Publications from './components/Publications.jsx';
 import Footer from './components/Footer.jsx';
 import Home from './pages/Home.jsx';
 import { Routes, Route } from 'react-router-dom';
 import ProjectDetail from './pages/ProjectDetail.jsx';
 import AboutPage from './pages/AboutPage.jsx';
+import ResearchProjectsPage from './pages/ResearchProjectsPage.jsx';
 import PublicationsPage from './pages/PublicationsPage.jsx';
+import ContactPage from './pages/ContactPage.jsx';
 import { useTheme } from './hooks/useTheme.js';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -37,9 +37,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutPage />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/publications" element={<PublicationsPage />} />
+          <Route path="/research-projects" element={<ResearchProjectsPage />} />
           <Route path="/projects/:id" element={<ProjectDetail />} />
+          <Route path="/publications" element={<PublicationsPage />} />
+          <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </main>
       <Footer />

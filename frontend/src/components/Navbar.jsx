@@ -12,15 +12,17 @@ export default function Navbar({ onToggleTheme, isDark }) {
     const path = location.pathname;
     if (path === '/') setActiveSection('home');
     else if (path === '/about') setActiveSection('about');
-    else if (path === '/projects') setActiveSection('projects');
+    else if (path === '/research-projects' || path.startsWith('/projects/')) setActiveSection('research-projects');
     else if (path === '/publications') setActiveSection('publications');
+    else if (path === '/contact') setActiveSection('contact');
   }, [location]);
 
   const items = [
     { type: 'route', href: '/', label: 'Home', id: 'home' },
     { type: 'route', href: '/about', label: 'About', id: 'about' },
-    { type: 'route', href: '/projects', label: 'Research', id: 'projects' },
+    { type: 'route', href: '/research-projects', label: 'Research & Projects', id: 'research-projects' },
     { type: 'route', href: '/publications', label: 'Publications', id: 'publications' },
+    { type: 'route', href: '/contact', label: 'Contact', id: 'contact' },
   ];
 
   return (

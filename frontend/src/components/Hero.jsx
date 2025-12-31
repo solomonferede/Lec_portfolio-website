@@ -1,4 +1,5 @@
 import { profile } from "../data/data.js";
+import { Link } from "react-router-dom";
 import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 import { SiGooglescholar } from "react-icons/si";
 import { useScrollReveal } from "../hooks/useScrollReveal.js";
@@ -10,23 +11,31 @@ export default function Hero() {
     <section id="home" className="section section-reveal" ref={sectionRef}>
       <div className={`grid md:grid-cols-2 gap-10 items-center ${isRevealed ? 'revealed' : ''}`}>
         <div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-slate-200/60 dark:border-slate-800/60 px-3 py-1 text-xs mb-4">
-            <span className="w-2 h-2 rounded-full bg-slate-400 dark:bg-slate-500"></span>
-            Seeking research opportunities
-          </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
             {profile.name}
           </h1>
-          <p className="mt-3 text-slate-700 dark:text-slate-300 font-medium">
+          <p className="mt-3 text-slate-700 dark:text-slate-300 font-medium text-lg">
             {profile.role}
           </p>
-          <p className="mt-6 text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">
-            {profile.tagline}
+          <p className="mt-4 text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">
+            Lecturer in Electrical and Computer Engineering at Wolaita Sodo University. Research focuses on control systems, embedded systems, and their applications in industrial automation and academic settings.
           </p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            <span className="text-xs px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Control Systems</span>
+            <span className="text-xs px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Embedded Systems</span>
+            <span className="text-xs px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">System Modeling</span>
+            <span className="text-xs px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Robotics</span>
+          </div>
           <div className="mt-8 flex items-center gap-4">
-            <a className="btn-primary" href="#featured-projects">
-              View Research
-            </a>
+            <Link className="btn-primary" to="/research-projects">
+              Research & Projects
+            </Link>
+            <Link className="btn-secondary" to="/publications">
+              Publications
+            </Link>
+            <Link className="btn-secondary" to="/contact">
+              Contact
+            </Link>
             <div className="flex items-center gap-3 text-xl">
               <a
                 aria-label="LinkedIn"

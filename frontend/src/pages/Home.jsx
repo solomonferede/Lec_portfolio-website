@@ -5,7 +5,7 @@ import FeaturedPublications from '../components/FeaturedPublications.jsx';
 
 export default function Home() {
   return (
-    <div>
+    <div className="container-px">
       <Hero />
       <FeaturedProjects />
       <QuickAbout />

@@ -90,8 +90,8 @@ export default function Projects() {
       <div className={isRevealed ? 'revealed' : ''}>
         <div className="flex items-end justify-between mb-6">
           <div>
-            <h2 className="section-heading">Projects</h2>
-            <p className="mt-2 text-slate-500 dark:text-slate-400">Research and development projects</p>
+            <h2 className="section-heading">Research Projects</h2>
+            <p className="mt-2 text-slate-500 dark:text-slate-400">Ongoing and past research activities and applied projects</p>
           </div>
         </div>
         {loading ? (

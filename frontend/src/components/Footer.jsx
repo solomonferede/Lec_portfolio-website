@@ -16,8 +16,9 @@ export default function Footer() {
 
   const navLinks = [
     { href: "/about", label: "About" },
-    { href: "/projects", label: "Research" },
+    { href: "/research-projects", label: "Research & Projects" },
     { href: "/publications", label: "Publications" },
+    { href: "/contact", label: "Contact" },
   ];
 
   return (

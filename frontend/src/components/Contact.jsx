@@ -7,8 +7,19 @@ export default function Contact() {
   return (
     <section id="contact" className="section">
       <div>
-        <h2 className="section-heading">Contact</h2>
-        <p className="mt-2 text-slate-500 dark:text-slate-400">Contact information for research collaboration and academic inquiries</p>
+        <h1 className="section-heading text-3xl mb-2">Contact</h1>
+        <p className="mt-2 text-slate-500 dark:text-slate-400 mb-6">
+          Contact information for research collaboration and academic inquiries
+        </p>
+        <div className="card p-6 mb-6">
+          <h3 className="font-semibold text-slate-900 dark:text-slate-50 mb-4">Institutional Affiliation</h3>
+          <p className="text-slate-700 dark:text-slate-300 mb-2">
+            <strong>Wolaita Sodo University</strong>
+          </p>
+          <p className="text-slate-600 dark:text-slate-400 text-sm">
+            Department of Electrical and Computer Engineering
+          </p>
+        </div>
         <div className="mt-6 flex flex-col gap-3">
           <a className="inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 transition-colors" href={`mailto:${contact.email}`}>
             <FiMail /> {contact.email}
