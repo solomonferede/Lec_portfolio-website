@@ -14,6 +14,7 @@ export default function Navbar({ onToggleTheme, isDark }) {
     else if (path === '/about') setActiveSection('about');
     else if (path === '/research-projects' || path.startsWith('/projects/')) setActiveSection('research-projects');
     else if (path === '/publications') setActiveSection('publications');
+    else if (path === '/blog' || path.startsWith('/blog/')) setActiveSection('blog');
     else if (path === '/contact') setActiveSection('contact');
   }, [location]);
 
@@ -22,6 +23,7 @@ export default function Navbar({ onToggleTheme, isDark }) {
     { type: 'route', href: '/about', label: 'About', id: 'about' },
     { type: 'route', href: '/research-projects', label: 'Research & Projects', id: 'research-projects' },
     { type: 'route', href: '/publications', label: 'Publications', id: 'publications' },
+    { type: 'route', href: '/blog', label: 'Blog', id: 'blog' },
     { type: 'route', href: '/contact', label: 'Contact', id: 'contact' },
   ];
 

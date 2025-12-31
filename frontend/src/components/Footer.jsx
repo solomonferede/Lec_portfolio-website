@@ -18,6 +18,7 @@ export default function Footer() {
     { href: "/about", label: "About" },
     { href: "/research-projects", label: "Research & Projects" },
     { href: "/publications", label: "Publications" },
+    { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
   ];
 

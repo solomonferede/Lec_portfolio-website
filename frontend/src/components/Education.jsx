@@ -1,6 +1,6 @@
 import { useScrollReveal } from "../hooks/useScrollReveal.js";
 import { useEffect, useRef, useState } from "react";
-import { fetchAll } from "../utils/api.js";
+import { fetchAll, getBaseUrl } from "../utils/api.js";
 
 function TimelineItem({ edu, index }) {
   const [isRevealed, setIsRevealed] = useState(false);
@@ -58,6 +58,21 @@ function TimelineItem({ edu, index }) {
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
             {edu.description}
           </p>
+        )}
+        {edu.certificate_file && (
+          <div className="mt-3">
+            <a
+              href={edu.certificate_file.startsWith('http') ? edu.certificate_file : `${getBaseUrl().replace('/api', '')}${edu.certificate_file}`}
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-50 hover:underline transition-colors inline-flex items-center gap-1"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              View Certificate
+            </a>
+          </div>
         )}
       </div>
     </div>

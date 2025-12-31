@@ -69,12 +69,12 @@ html {
   }
 
   .section {
-    @apply container-px max-w-7xl mx-auto py-16 sm:py-20;
+    @apply container-px max-w-7xl mx-auto py-10 sm:py-12;
   }
 
   /* Section Heading with Vertical Accent Line */
   .section-heading {
-    @apply text-2xl sm:text-3xl font-bold mb-2 relative pl-4;
+    @apply text-2xl sm:text-3xl font-bold mb-1 relative pl-4;
   }
 
   .section-heading::before {
@@ -142,7 +142,7 @@ html {
   }
 
   .timeline-item-wrapper {
-    @apply relative mb-8;
+    @apply relative mb-6;
   }
 
   .timeline-item-wrapper::before {

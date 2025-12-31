@@ -1,6 +1,6 @@
 import { useScrollReveal } from "../hooks/useScrollReveal.js";
 import { useEffect, useRef, useState } from "react";
-import { fetchAll } from "../utils/api.js";
+import { fetchAll, getBaseUrl } from "../utils/api.js";
 
 function TimelineItem({ exp, index }) {
   const [isRevealed, setIsRevealed] = useState(false);
@@ -43,6 +43,20 @@ function TimelineItem({ exp, index }) {
         : Array.isArray(exp.responsibilities) ? exp.responsibilities : [])
     : [];
 
+  // Format date for display (month and year)
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+    } catch {
+      return dateString;
+    }
+  };
+
+  const startDateFormatted = formatDate(exp.start_date);
+  const endDateFormatted = exp.end_date ? formatDate(exp.end_date) : 'Current';
+
   return (
     <div className="timeline-item-wrapper">
       <div 
@@ -54,7 +68,7 @@ function TimelineItem({ exp, index }) {
             {exp.role}
           </div>
           <div className="text-sm text-slate-500 dark:text-slate-400">
-            {exp.start_date && exp.end_date ? `${exp.start_date} – ${exp.end_date}` : exp.start_date || exp.end_date || ''}
+            {startDateFormatted && endDateFormatted ? `${startDateFormatted} – ${endDateFormatted}` : startDateFormatted || endDateFormatted || ''}
           </div>
         </div>
         <div className="text-sm text-slate-600 dark:text-slate-400 mb-2">
@@ -72,6 +86,21 @@ function TimelineItem({ exp, index }) {
               <li key={i}>{resp}</li>
             ))}
           </ul>
+        )}
+        {exp.attachment && (
+          <div className="mt-3">
+            <a
+              href={exp.attachment.startsWith('http') ? exp.attachment : `${getBaseUrl().replace('/api', '')}${exp.attachment}`}
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-50 hover:underline transition-colors inline-flex items-center gap-1"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              View Attachment
+            </a>
+          </div>
         )}
       </div>
     </div>

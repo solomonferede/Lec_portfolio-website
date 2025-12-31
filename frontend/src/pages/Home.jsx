@@ -2,6 +2,7 @@ import Hero from '../components/Hero.jsx';
 import FeaturedProjects from '../components/FeaturedProjects.jsx';
 import QuickAbout from '../components/QuickAbout.jsx';
 import FeaturedPublications from '../components/FeaturedPublications.jsx';
+import LatestBlogs from '../components/LatestBlogs.jsx';
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <FeaturedProjects />
       <QuickAbout />
       <FeaturedPublications />
+      <LatestBlogs />
     </div>
   );
 }

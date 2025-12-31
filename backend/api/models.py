@@ -97,10 +97,11 @@ class Experience(models.Model):
     role = models.CharField(max_length=200)
     organisation = models.CharField(max_length=200)
     location = models.CharField(max_length=200, blank=True)
-    start_date = models.CharField(max_length=50)
-    end_date = models.CharField(max_length=50, blank=True, help_text="Use 'Current' for ongoing positions")
+    start_date = models.DateField(help_text="Start date (month and year)")
+    end_date = models.DateField(null=True, blank=True, help_text="End date (month and year). Leave blank for current positions")
     description = models.TextField(blank=True)
     responsibilities = models.TextField(blank=True, help_text="Comma-separated or newline-separated")
+    attachment = models.FileField(upload_to='experience/attachments/', blank=True, null=True, help_text="Optional attachment (e.g., recommendation letter, certificate)")
     order = models.IntegerField(default=0, help_text="Order for display (higher = more recent)")
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -118,6 +119,7 @@ class Education(models.Model):
     start_date = models.CharField(max_length=50, blank=True)
     end_date = models.CharField(max_length=50, blank=True)
     description = models.TextField(blank=True)
+    certificate_file = models.FileField(upload_to='education/certificates/', blank=True, null=True, help_text="Optional certificate attachment")
     order = models.IntegerField(default=0, help_text="Order for display (higher = more recent)")
     created_at = models.DateTimeField(auto_now_add=True)
 

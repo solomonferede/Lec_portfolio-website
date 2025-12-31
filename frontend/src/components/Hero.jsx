@@ -11,10 +11,10 @@ export default function Hero() {
     <section id="home" className="section section-reveal" ref={sectionRef}>
       <div className={`grid md:grid-cols-2 gap-10 items-center ${isRevealed ? 'revealed' : ''}`}>
         <div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight">
             {profile.name}
           </h1>
-          <p className="mt-3 text-slate-700 dark:text-slate-300 font-medium text-lg">
+          <p className="mt-2 text-slate-700 dark:text-slate-300 font-medium text-lg">
             {profile.role}
           </p>
           <p className="mt-4 text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">
