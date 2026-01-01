@@ -1,32 +1,41 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
 /**
  * Hook for section reveal animation on scroll
  * Respects prefers-reduced-motion
  */
 export function useScrollReveal(options = {}) {
-  // Start with true to ensure content is visible by default
-  const [isRevealed, setIsRevealed] = useState(true);
+  // Start hidden; we'll add a `will-reveal` class to the element so
+  // CSS only hides when JS is active. This preserves no-JS visibility.
+  const [isRevealed, setIsRevealed] = useState(false);
   const elementRef = useRef(null);
-  const { threshold = 0.1, rootMargin = '0px' } = options;
+  const { threshold = 0.1, rootMargin = "0px" } = options;
 
   useEffect(() => {
     // Check for reduced motion preference
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
-      return; // Already true by default
-    }
-
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
     const element = elementRef.current;
     if (!element) return;
 
-    // For animation: temporarily hide, then reveal on scroll
+    // If user prefers reduced motion, reveal immediately and don't add will-reveal
+    if (prefersReducedMotion) {
+      setIsRevealed(true);
+      return;
+    }
+
+    // Add marker class so CSS knows JS is active and can hide elements safely
+    element.classList.add("will-reveal");
+
+    // For animation: reveal when in viewport. Start hidden by default.
     setIsRevealed(false);
 
     // Check if element is already in viewport on mount
     const checkViewport = () => {
       const rect = element.getBoundingClientRect();
-      const isInViewport = rect.top < window.innerHeight + 100 && rect.bottom > -100;
+      const isInViewport =
+        rect.top < window.innerHeight + 100 && rect.bottom > -100;
       return isInViewport;
     };
 
@@ -46,7 +55,7 @@ export function useScrollReveal(options = {}) {
           }
         });
       },
-      { threshold, rootMargin: rootMargin || '0px' }
+      { threshold, rootMargin: rootMargin || "0px" }
     );
 
     observer.observe(element);
@@ -55,6 +64,7 @@ export function useScrollReveal(options = {}) {
       clearTimeout(timer);
       if (element) {
         observer.unobserve(element);
+        element.classList.remove("will-reveal");
       }
     };
   }, [threshold, rootMargin]);

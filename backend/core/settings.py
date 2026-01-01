@@ -9,37 +9,42 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-import os
+
 from pathlib import Path
-from dotenv import load_dotenv, find_dotenv
+import environ
+
+# BASE_DIR: usually points to backend/
+BASE_DIR = Path(__file__).resolve().parent.parent  # backend/
+PROJECT_ROOT = BASE_DIR.parent  # projectroot/
+
+env = environ.Env(
+    DEBUG=(bool, False)
+)
+
+# Read .env only if NOT in Docker
+if not env.bool("IS_DOCKER", default=False):
+    # Correct path to .env
+    environ.Env.read_env(PROJECT_ROOT / ".env")
+
+# Test if DB_PASSWORD is loaded
+print("DB_PASSWORD FOUND:", bool(env("DB_PASSWORD", default=None)))
 
 
-# Load environment variables from nearest .env up the tree (project root)
-load_dotenv(find_dotenv())
-
-
-print("DB_NAME =", os.environ.get("DB_NAME"))
-print("DB_USER =", os.environ.get("DB_USER"))
-print("DB_PASSWORD =", os.environ.get("DB_PASSWORD"))
-print("DB_HOST =", os.environ.get("DB_HOST"))
-
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+print("DB_NAME =", env("DB_NAME", default="portfolio_db1"))
+print("DB_USER =", env("DB_USER", default="solomon"))
+print("DB_PASSWORD =", env("DB_PASSWORD"))
+print("DB_HOST =", env("DB_HOST", default="db"))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-wnzv*l%ylcah3-v4h^96bygtuu-jurdn6$_e-_irk8%ocx7l7^'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['solomonferede.ethiodigital.com.et', '127.0.0.1', 'localhost']
+SECRET_KEY = env('SECRET_KEY')
 
 
+# Allow all hosts for development; in production, specify allowed hosts
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
 # Application definition
 
@@ -99,23 +104,16 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 
-
-
-# DATABASE CONFIGURATION
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_NAME', 'portfolio_db'),
-        'USER': os.environ.get('DB_USER', 'solomon'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': os.environ.get('DB_PORT', '3306'),
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": env("DB_NAME"),
+        "USER": env("DB_USER"),
+        "PASSWORD": env("DB_PASSWORD"),
+        "HOST": env("DB_HOST"),
+        "PORT": env("DB_PORT"),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -152,12 +150,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 
+# Static files (CSS, JS, images)
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = BASE_DIR / 'static'  # Path object
 
+# Media files (uploads)
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
+MEDIA_ROOT = BASE_DIR / 'media'    # Path object
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

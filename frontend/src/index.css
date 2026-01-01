@@ -3,7 +3,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Academic Typography */
+/* =========================
+   BASE TYPOGRAPHY
+========================= */
 @layer base {
   body {
     @apply bg-white text-slate-800 dark:bg-slate-950 dark:text-slate-100 antialiased;
@@ -27,92 +29,86 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Respect reduced motion preference */
+/* =========================
+   REDUCED MOTION
+========================= */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation: none !important;
+    transition: none !important;
     scroll-behavior: auto !important;
   }
 }
 
-/* Section Reveal Animation */
+/* =========================
+   REVEAL UTILITIES (FIXED)
+========================= */
 @layer utilities {
-  /* Default: content is always visible */
+  /* DEFAULT: always visible */
   .section-reveal > div:first-child {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
   }
 
+  /* Hide ONLY when JS opts-in */
   @media (prefers-reduced-motion: no-preference) {
-    /* Apply animation only when content doesn't have revealed class */
-    .section-reveal > div:first-child:not(.revealed) {
+    .section-reveal.will-reveal > div:first-child {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(24px);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
 
-    /* Revealed state - always visible */
-    .section-reveal.revealed > div:first-child,
-    .section-reveal > div:first-child.revealed {
-      opacity: 1 !important;
-      transform: translateY(0) !important;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .section-reveal > div:first-child {
-      opacity: 1 !important;
-      transform: none !important;
-      transition: none !important;
-    }
-  }
-
-  /* Staggered animation for grid items */
-  .animate-item {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .animate-item.revealed {
+    .section-reveal.will-reveal > div:first-child.revealed {
       opacity: 1;
       transform: translateY(0);
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .animate-item {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
-  }
-
-  /* Fade in animation */
-  .fade-in {
-    opacity: 0;
-    transition: opacity 0.6s ease-out;
+  /* =========================
+     STAGGER ITEMS
+  ========================= */
+  .animate-item {
+    opacity: 1;
+    transform: none;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .fade-in.revealed {
+    .animate-item.will-reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .animate-item.will-reveal.revealed {
       opacity: 1;
+      transform: translateY(0);
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .fade-in {
+  /* =========================
+     FADE ONLY
+  ========================= */
+  .fade-in {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .fade-in.will-reveal {
+      opacity: 0;
+      transition: opacity 0.6s ease-out;
+    }
+
+    .fade-in.will-reveal.revealed {
       opacity: 1;
-      transition: none;
     }
   }
 }
 
+/* =========================
+   COMPONENTS
+========================= */
 @layer components {
   .container-px {
     @apply px-4 sm:px-6 lg:px-8;
@@ -122,7 +118,6 @@ html {
     @apply container-px max-w-7xl mx-auto py-10 sm:py-12;
   }
 
-  /* Section Heading with Vertical Accent Line */
   .section-heading {
     @apply text-2xl sm:text-3xl font-bold mb-1 relative pl-4;
   }
@@ -132,56 +127,19 @@ html {
     @apply absolute left-0 top-0 bottom-0 w-0.5 bg-slate-300 dark:bg-slate-700;
   }
 
-  /* Academic Card - Soft shadow on hover, no scale/translate */
+  /* Card */
   .card {
-    @apply rounded-lg border border-slate-200/60 dark:border-slate-800/60 bg-white dark:bg-slate-900/80;
+    @apply rounded-lg border border-slate-200/60 dark:border-slate-800/60;
+    @apply bg-white dark:bg-slate-900/80;
     @apply transition-shadow duration-300 ease-out;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-      0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
   }
 
   .card:hover {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .card {
-      transition: none;
-    }
-  }
-
-  /* Timeline Item - Opacity-only fade */
-  .timeline-item {
-    @apply opacity-100 transition-opacity duration-500 ease-out;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .timeline-item.revealed {
-      @apply opacity-100;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .timeline-item {
-      @apply opacity-100;
-    }
-  }
-
-  /* Tag/Pill Style for Skills and Research Interests */
-  .tag {
-    @apply inline-block px-4 py-2 rounded-md border border-slate-200 dark:border-slate-700;
-    @apply bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300;
-    @apply text-sm font-medium;
-  }
-
-  .btn-primary {
-    @apply inline-flex items-center gap-2 rounded-lg bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900;
-    @apply px-5 py-2.5 hover:bg-slate-900 dark:hover:bg-slate-100 transition-colors;
-    @apply font-medium;
-  }
-
-  /* Vertical Timeline Layout */
+  /* Timeline */
   .timeline {
     @apply relative pl-8;
   }
@@ -191,18 +149,45 @@ html {
     @apply absolute left-2 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-800;
   }
 
+  .timeline-item {
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+  }
+
+  .timeline-item.will-reveal {
+    opacity: 0;
+  }
+
+  .timeline-item.will-reveal.revealed {
+    opacity: 1;
+  }
+
   .timeline-item-wrapper {
     @apply relative mb-6;
   }
 
   .timeline-item-wrapper::before {
     content: "";
-    @apply absolute -left-11 top-2 w-3 h-3 rounded-full bg-slate-400 dark:bg-slate-600;
+    @apply absolute -left-11 top-2 w-3 h-3 rounded-full;
+    @apply bg-slate-400 dark:bg-slate-600;
     @apply border-2 border-white dark:border-slate-900;
-    z-index: 1;
   }
 
-  .timeline-item-wrapper:last-child {
-    @apply mb-0;
+  /* Tags */
+  .tag {
+    @apply inline-block px-4 py-2 rounded-md;
+    @apply border border-slate-200 dark:border-slate-700;
+    @apply bg-white dark:bg-slate-900;
+    @apply text-slate-700 dark:text-slate-300;
+    @apply text-sm font-medium;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 rounded-lg;
+    @apply bg-slate-800 dark:bg-slate-200;
+    @apply text-white dark:text-slate-900;
+    @apply px-5 py-2.5 font-medium;
+    @apply hover:bg-slate-900 dark:hover:bg-slate-100 transition-colors;
   }
 }
