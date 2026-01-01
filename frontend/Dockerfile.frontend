@@ -1,0 +1,28 @@
+# Stage 1: Build React app
+FROM node:22-alpine AS build
+
+WORKDIR /app
+
+# Install dependencies
+COPY frontend/package*.json ./
+RUN npm install
+
+# Copy frontend code
+COPY ./frontend /app
+
+# Build static files
+RUN npm run build
+
+# Stage 2: Serve with Nginx
+FROM nginx:alpine
+
+# Copy built frontend into Nginx html folder
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Remove default Nginx config and add custom config (optional)
+COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose port
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

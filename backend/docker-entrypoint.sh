@@ -41,5 +41,6 @@ python manage.py migrate --noinput
 echo "Collecting static files..."
 python manage.py collectstatic --noinput || true
 
-echo "Starting Django development server..."
-exec python manage.py runserver 0.0.0.0:8000
+echo "Starting Start Gunicorn server..."
+# Start Gunicorn server
+exec gunicorn core.wsgi:application --bind 0.0.0.0:8000 --workers 4
