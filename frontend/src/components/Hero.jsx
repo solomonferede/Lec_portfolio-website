@@ -9,23 +9,53 @@ export default function Hero() {
 
   return (
     <section id="home" className="section section-reveal" ref={sectionRef}>
-      <div className={`grid md:grid-cols-2 gap-10 items-center ${isRevealed ? 'revealed' : ''}`}>
+      <div
+        className={`grid md:grid-cols-2 gap-10 items-center ${
+          isRevealed ? "revealed" : ""
+        }`}
+      >
         <div>
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight">
             {profile.name}
           </h1>
+
           <p className="mt-2 text-slate-700 dark:text-slate-300 font-medium text-lg">
             {profile.role}
           </p>
+
           <p className="mt-4 text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">
-            Lecturer in Electrical and Computer Engineering at Wolaita Sodo University. Research focuses on control systems, embedded systems, and their applications in industrial automation and academic settings.
+            Lecturer in Electrical and Computer Engineering at Wolaita Sodo
+            University. Research and teaching focus on control systems, fuzzy
+            logic and neural network–based control, embedded systems, robotics
+            and soft robotics for medical applications, and renewable energy
+            control, with applications in industrial automation and intelligent
+            systems.
           </p>
+
           <div className="mt-6 flex flex-wrap gap-2">
-            <span className="text-xs px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Control Systems</span>
-            <span className="text-xs px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Embedded Systems</span>
-            <span className="text-xs px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">System Modeling</span>
-            <span className="text-xs px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Robotics</span>
+            <span className="text-xs px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+              Control Systems
+            </span>
+            <span className="text-xs px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+              Fuzzy Logic Control
+            </span>
+            <span className="text-xs px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+              Neural Networks
+            </span>
+            <span className="text-xs px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+              Embedded Systems
+            </span>
+            <span className="text-xs px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+              Robotics
+            </span>
+            <span className="text-xs px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+              Soft Robotics (Medical)
+            </span>
+            <span className="text-xs px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+              Renewable Energy Control
+            </span>
           </div>
+
           <div className="mt-8 flex items-center gap-4">
             <Link className="btn-primary" to="/research-projects">
               Research & Projects
@@ -36,6 +66,7 @@ export default function Hero() {
             <Link className="btn-secondary" to="/contact">
               Contact
             </Link>
+
             <div className="flex items-center gap-3 text-xl">
               <a
                 aria-label="LinkedIn"
@@ -76,6 +107,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
+
         <div>
           <div className="card p-2 md:p-4">
             <div className="aspect-[4/3] rounded-lg overflow-hidden border border-slate-200/60 dark:border-slate-800/60 bg-slate-100 dark:bg-slate-800">
